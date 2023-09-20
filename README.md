@@ -7,6 +7,7 @@ This project is a simple Spring Boot application demonstrating a web service for
 
 - Java 11
 - Maven
+- Postman
 
 ## Getting Started
 
