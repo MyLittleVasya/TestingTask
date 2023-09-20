@@ -4,6 +4,7 @@ import com.example.testtask.entity.Product;
 import com.example.testtask.entity.repository.ProductRepository;
 import com.example.testtask.handler.exception.AlreadyExistsException;
 import com.example.testtask.handler.exception.NotFoundException;
+import com.example.testtask.handler.exception.OperationNotAllowedException;
 import com.example.testtask.mapper.ProductMapper;
 import com.example.testtask.service.ProductService;
 import jakarta.annotation.Nonnull;
@@ -61,6 +62,9 @@ public class ProductServiceImpl implements ProductService {
   public void changeQuantity(int productId, int quantity) {
     final var product = getProduct(productId);
     product.setQuantity(product.getQuantity() + quantity);
+    if (product.getQuantity() < 0) {
+      throw new OperationNotAllowedException("The quantity of product cannot be negative");
+    }
     productRepository.save(product);
   }
 }
